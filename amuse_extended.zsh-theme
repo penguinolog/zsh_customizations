@@ -1,0 +1,37 @@
+# vim:ft=zsh ts=2 sw=2 sts=2
+
+function prompt_char {
+	if [ $UID -eq 0 ]; then echo "#"; else echo $; fi
+}
+
+PROMPT='%(!.%{$fg_bold[red]%}.%{$fg_bold[green]%}%n@)%m %{$fg_bold[blue]%}%(!.%1~.%~) $(virtualenv_prompt_info)$(git_prompt_info)$(hg_prompt_info)$(svn_prompt_info)%_$(prompt_char)%{$reset_color%} '
+
+SUPER_VCS_PREFIX="\uE0A0"
+SUPER_VCS_PROMPT_DIRTY="%{$fg[red]%}\u00b1%{$fg_bold[blue]%}"
+SUPER_VCS_PROMPT_UNTRACKED="%{$fg[green]%}\u27a6%{$fg_bold[blue]%}"
+
+ZSH_THEME_GIT_PROMPT_PREFIX="$SUPER_VCS_PREFIX git:("
+ZSH_THEME_HG_PROMPT_PREFIX="$SUPER_VCS_PREFIX hg:("
+ZSH_THEME_SVN_PROMPT_PREFIX="$SUPER_VCS_PREFIX svn:("
+
+ZSH_THEME_GIT_PROMPT_SUFFIX=") "
+ZSH_THEME_HG_PROMPT_SUFFIX=$ZSH_THEME_GIT_PROMPT_SUFFIX
+ZSH_THEME_SVN_PROMPT_SUFFIX=$ZSH_THEME_GIT_PROMPT_SUFFIX
+
+ZSH_THEME_GIT_PROMPT_DIRTY=$SUPER_VCS_PROMPT_DIRTY
+ZSH_THEME_HG_PROMPT_DIRTY=$SUPER_VCS_PROMPT_DIRTY
+ZSH_THEME_SVN_PROMPT_DIRTY=$SUPER_VCS_PROMPT_DIRTY
+
+ZSH_THEME_GIT_PROMPT_UNTRACKED=$SUPER_VCS_PROMPT_UNTRACKED
+ZSH_THEME_HG_PROMPT_UNTRACKED=$SUPER_VCS_PROMPT_UNTRACKED
+ZSH_THEME_SVN_PROMPT_UNTRACKED=$SUPER_VCS_PROMPT_UNTRACKED
+
+ZSH_THEME_VIRTUALENV_PREFIX="venv:["
+ZSH_THEME_VIRTUALENV_SUFFIX="] "
+
+# Must use Powerline font, for \uE0A0 to render.
+#ZSH_THEME_GIT_PROMPT_PREFIX=" on %{$fg[magenta]%}\uE0A0 "
+#ZSH_THEME_GIT_PROMPT_SUFFIX="%{$reset_color%}"
+#ZSH_THEME_GIT_PROMPT_DIRTY="%{$fg[red]%}!"
+#ZSH_THEME_GIT_PROMPT_UNTRACKED="%{$fg[green]%}?"
+#ZSH_THEME_GIT_PROMPT_CLEAN=""
